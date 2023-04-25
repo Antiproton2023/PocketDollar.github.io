@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket Dollar</title>
+    <style>
+        
+        body{
+            overflow: auto;
+            background-color:#39B5E0;
+            font-family :'Lato';
+            text-align: center;
+
+        }
+        a{color: #0A4D68;
+         text-decoration: none;}
+         h1{
+            font-size:1.1em;
+            color:#0A4D68;
+            margin-top: 1.2em;
+            text-align: center;
+        }
+        .logo{color:antiquewhite;
+            font-family:'Lato';
+            position:fixed;
+            top:0%;
+            left :0%;
+            right:0%;
+            bottom:90%;
+            z-index:5;
+            background-color: white;
+        }
+        .img{
+            z-index: 5;
+            width: 3em;
+            position: absolute;
+            top:0.2em;
+            left:29em;
+            bottom:90%
+
+        }
+
+        .bold{
+            width:21em;
+            position: absolute;
+            left:1em;
+            top:9em
+        }
+        #boldtext1{
+            position:absolute;
+            left:1em;
+            top:1em;
+            font-family: "Lato";
+            color:#569DAA;
+            font-size: 3em;
+        }
+        #boldtext2{
+            font-family:Money;
+            font-size: 5.5em;
+            position: absolute;
+            top:0.9em;
+            left:4.9em;
+        }
+        .button {
+            
+             background-color: #4CAF50; /* Green */
+             border: none;
+             color: white;
+             padding: 15px 32px;
+             text-align: center;
+             text-decoration: none;
+             display: inline-block;
+             font-size: 16px;
+             margin: 4px 2px;
+             cursor: pointer;
+             -webkit-transition-duration: 0.4s; /* Safari */
+             transition-duration: 0.4s;}
+        .button:hover {
+             box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);}
+        
+        #home{
+            position: absolute;
+            top: 0.3em;
+            left: 0.5em;
+        }
+        p{
+            
+            color: #0A4D68;
+        }
+        #pd{text-align: center;}
+        .signs{
+            
+            position: absolute;
+            left:55%
+                        
+        }
+        input[type=text] {
+            padding: 10px 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            }
+        input[type=password] {
+            padding: 10px 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            }
+        .exp{
+            overflow:scroll;
+            position: absolute;
+            left:30px;
+            right:600px;
+            bottom: -500px;
+            top:70px;
+            background-color: azure;
+              
+        }
+        .xlarge{
+            font-size: xx-large;
+        }
+        #paydiv{
+            position: absolute;
+            left:10%;
+            right:60%;
+            top:390%;
+            bottom:20%
+        }
+        #addiv{
+            position: absolute;
+            left:60%;
+            right:10%;
+            top:390%;
+            bottom:20%
+        }
+    </style>
+</head>
+<body>
+    <span class = "logo">
+        <h1 >Pocket Dollar</h1>
+        <img class = "img" src = "piggy-bank.gif" alt="$">
+<!--        <h3 id="signup"><a href = "signup.html" >Signup</a><h3> 
+        <h3 id="login"><a href = "Login.html" >Login</a><h3> -->
+        <h3 id = "home"><a href = "index.html" >HOME</a><h3>
+        <hr>  
+    </span>
+    <h1 id = "Welcome" class="xlarge"></h1>
+    <h1 id = "CB" class="xlarge"></h1>
+
+    <div id ="paydiv">
+        <h1 class="xlarge">Pay</h1>
+        <h1>Pay to</h1>
+        <input type="text" id = "pt">
+        <h1>Amount to pay</h1>
+        <input type="text" id = "pa"><br>
+        <button id = "Pay" class="button">Pay</button>
+    </div>
+    <div id="addiv">
+        <h1 class="xlarge">Add Money</h1>
+        <h1>No. of GoldPoints to add:</h1>
+        <input type="text" id = "gpt"><br>
+        <button id = "Add" class = "button">Add</button>
+    </div>
+    
+    <script type="module">
+        var PayEnabled = false
+        var AddEnabled = false
+        var cb =0;
+        //FIREBASE INIT
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDbzIAa62WYiCIPotn0oLcuIHaEpH65aqY",
+            authDomain: "js12-97263.firebaseapp.com",
+            databaseURL: "https://js12-97263-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "js12-97263",
+            storageBucket: "js12-97263.appspot.com",
+            messagingSenderId: "199648949193",
+            appId: "1:199648949193:web:12d8a90bea9cf434c7ee18"
+        };
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        import{getDatabase,set,get,update,remove,ref,child}
+        from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+        const db = getDatabase()
+        var cb = 0
+        var UserUsingWebpage = localStorage.getItem("PocketDollarU")
+        var AgeUsingWebpage = localStorage.getItem("PocketDollarType") 
+        console.log(UserUsingWebpage, AgeUsingWebpage)       
+        const dbref = ref(db)
+        if (AgeUsingWebpage==="Kid"){
+                document.getElementById("Add").style.backgroundColor = '#D8D8D8'
+                document.getElementById("Add").style.boxShadow = 'None'
+                document.getElementById("Add").title = 'This feature is disabled in Kid mode'
+                PayEnabled = true
+            }
+            if(AgeUsingWebpage==="Parent"){
+                
+                document.getElementById("Pay").style.backgroundColor = '#D8D8D8'
+                document.getElementById("Pay").style.boxShadow = 'None'
+                document.getElementById("Pay").title = 'This feature is disabled in parent mode'
+                AddEnabled = true
+            }
+        get(child(dbref,"Users/"+ UserUsingWebpage))
+        .then(function(snapshot){
+            var a = snapshot.exists()
+            cb = snapshot.val().GoldPoints 
+            document.getElementById("Welcome").innerHTML = "Welcome "+UserUsingWebpage
+            document.getElementById("CB").innerHTML ="Current Balance = "+ cb + " GoldPoints"
+        
+        document.getElementById('Pay').onclick = function(){
+                if (PayEnabled){ console.log("ok")
+                    var PU = document.getElementById('pt').value   
+                    var PA = document.getElementById('pa').value
+                    const dbref = ref(db)
+                    get(child(dbref, "Users/"+PU))
+                    .then(function(snapshot){
+                        if (snapshot.exists() === true){
+                            get(child(dbref,"Users/"+UserUsingWebpage))
+                            .then(function(snapshot){
+                                var Money = snapshot.val().GoldPoints
+                                if (Money >= PA){
+                                    update(ref(db,"Users/"+UserUsingWebpage),{
+                                        GoldPoints:Money-parseInt(PA)
+                                    })
+                                    get(child(dbref,"Users/"+PU))
+                                    .then(function(snapshot){
+                                        var UserPaytoAmount = snapshot.val().GoldPoints
+                                        update(ref(db,"Users/"+PU),{
+                                        GoldPoints:UserPaytoAmount+parseInt(PA)})
+                                        alert("Transaction Successfull")
+                                        location.href = "fts.html"                                        
+                                    })
+
+                                }
+                                else(alert("Your balance is too less to perform this transaction."))
+                            }) 
+                        }
+                        else{alert("The user you are trying to transfer money to does not exist.")}
+                    })
+
+                }
+                else{document.getElementById("Pay").onclick = function(){alert('This function is disabled in Parent mode.')}}
+            }
+        document.getElementById('Add').onclick = function(){
+            if (AddEnabled){
+                const dbref = ref(db)
+                get(child(dbref,"Users/"+UserUsingWebpage))
+                .then(function(snapshot){
+                    var MoneyAldreadyInAcc = snapshot.val().GoldPoints
+                    var MoneyToAdd = document.getElementById('gpt').value
+                    update(ref(db,'Users/'+UserUsingWebpage),{
+                        GoldPoints:MoneyAldreadyInAcc+ parseInt(MoneyToAdd)
+                    })
+                    alert("Goldpoints have been added!")
+                    location.href = "fts.html"
+                })
+            }
+            else{alert('This function is disabled in Kid mode.')}
+
+        }
+
+        })
+        
+
+
+    </script>
+</body>
+</html>

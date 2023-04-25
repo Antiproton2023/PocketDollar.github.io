@@ -1,0 +1,123 @@
+<!--ABOUT PAGE, OWNERS OF WEBSITE CAN EXPLAIN HOW TO USE THE SERVICE, COMMON FAQS ETC. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PocketDollar|Banking for kids.</title>
+    <style>
+        @font-face {
+            font-family: Money;
+            src: url("MONEY.ttf");
+        }
+        body{
+            background-color:white;
+            font-family: 'Lato';
+        }
+
+        h1{
+            font-size:1.1em;
+            color:#0A4D68;
+            margin-left: 23em;
+            margin-top: 1.2em;
+        }
+        .logo{color:antiquewhite;
+            font-family:'Lato';
+            position:fixed;
+            top:0%;
+            left :0%;
+            right:0%;
+            bottom:90%;
+            z-index:5;
+        }
+        .img{
+            z-index: 5;
+            width: 3em;
+            position: absolute;
+            top:0.2em;
+            left:22em;
+            bottom:90%
+
+        }
+
+        .bold{
+            width:21em;
+            position: absolute;
+            left:1em;
+            top:9em
+        }
+        #boldtext1{
+            position:absolute;
+            left:1em;
+            top:1em;
+            font-family: "Lato";
+            color:#569DAA;
+            font-size: 3em;
+        }
+        #boldtext2{
+            font-family:Money;
+            font-size: 5.5em;
+            position: absolute;
+            top:0.9em;
+            left:4.9em;
+        }
+        .button {
+             position: absolute;
+             left:35em;
+             background-color: #4CAF50; /* Green */
+             border: none;
+             color: white;
+             padding: 15px 32px;
+             text-align: center;
+             text-decoration: none;
+             display: inline-block;
+             font-size: 16px;
+             margin: 4px 2px;
+             cursor: pointer;
+             -webkit-transition-duration: 0.4s; /* Safari */
+             transition-duration: 0.4s;}
+        .button:hover {
+             box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);}
+        #b1{
+            position:absolute;
+            top:17em;
+        }
+        #b2{
+            position: absolute;
+            top:22em;
+        }
+        #b3{
+            position: absolute;
+            top: 27em;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    
+    <span class = "logo">
+        <h1 >Pocket Dollar</h1>
+        <img class = "img" src = "piggy-bank.gif" alt="$">
+<!--        <h3 id="signup"><a href = "signup.html" >Signup</a><h3> 
+        <h3 id="login"><a href = "Login.html" >Login</a><h3> -->
+        <hr>  
+    </span>
+    <img class = "bold" src ="Canva.png">
+    <p id="boldtext1">We aspire to teach kids how to handle</p>
+    <p id ="boldtext2">MONEY</p>
+    <a href = "https://youtube.com" target="_blank">
+    <button type="button" class="button" id ="b1">Learn More</button>
+    </a>
+    <a href = "loginfork.html">
+    <button type="button" class="button" id ="b2">Login</button>
+    </a>    
+    <a href="signup.html">
+    <button type="button" class="button" id ="b3">Signup</button>    
+    </a>
+   <script>
+        localStorage.removeItem("PocketDollarU")
+        localStorage.removeItem("PocketDollarType")
+    </script>
+</body>
+</html>

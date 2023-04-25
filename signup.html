@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PocketDollar.net</title>
+    <style>
+        html{
+            overflow:auto;
+        }
+        body{
+            background-color:#39B5E0;
+            font-family :'Lato';
+            text-align: center;
+
+        }
+        a{color: #0A4D68;
+         text-decoration: none;}
+         h1{
+            font-size:1.1em;
+            color:#0A4D68;
+            margin-top: 1.2em;
+            text-align: center;
+        }
+        .logo{color:antiquewhite;
+            font-family:'Lato';
+            position:fixed;
+            top:0%;
+            left :0%;
+            right:0%;
+            bottom:90%;
+            z-index:5;
+            background-color: white;
+        }
+        .img{
+            z-index: 5;
+            width: 3em;
+            position: absolute;
+            top:0.2em;
+            left:29em;
+            bottom:90%
+
+        }
+
+        .bold{
+            width:21em;
+            position: absolute;
+            left:1em;
+            top:9em
+        }
+        #boldtext1{
+            position:absolute;
+            left:1em;
+            top:1em;
+            font-family: "Lato";
+            color:#569DAA;
+            font-size: 3em;
+        }
+        #boldtext2{
+            font-family:Money;
+            font-size: 5.5em;
+            position: absolute;
+            top:0.9em;
+            left:4.9em;
+        }
+        .button {
+            
+             background-color: #4CAF50; /* Green */
+             border: none;
+             color: white;
+             padding: 15px 32px;
+             text-align: center;
+             text-decoration: none;
+             display: inline-block;
+             font-size: 16px;
+             margin: 4px 2px;
+             cursor: pointer;
+             -webkit-transition-duration: 0.4s; /* Safari */
+             transition-duration: 0.4s;}
+        .button:hover {
+             box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);}
+        
+        #home{
+            position: absolute;
+            top: 0.3em;
+            left: 0.5em;
+        }
+        p{
+            
+            color: #0A4D68;
+        }
+        #pd{text-align: center;}
+        .signs{
+            
+            position: absolute;
+            left:55%
+                        
+        }
+        input[type=text] {
+            padding: 10px 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            }
+        input[type=password] {
+            padding: 10px 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            }
+        .exp{
+            overflow:scroll;
+            position: absolute;
+            left:30px;
+            right:600px;
+            bottom: -500px;
+            top:70px;
+            background-color: azure;
+              
+        }
+    </style>
+</head>
+<body>
+    <!--This Is FOR THE HEADBAR (Common in every page of this website)-->
+    <span class = "logo">
+        <h1 id ="pd">Pocket Dollar</h1>
+        <img class = "img" src = "piggy-bank.gif" alt="$">
+        <h3 id = "home"><a href = "index.html" >HOME</a><h3>
+ <!--       <h3><a href = "signup.html" >Signup</a><h3> 
+        <h3><a href = "Login.html" >Use</a><h3> -->
+            <hr>
+        
+    </span>  
+
+    
+    <!--This DIV contains the SIGNUP BOX-->
+    <div class = "signs">
+        <h1 z-index:1>Signup</h1>
+        <p>Signup for a new account for your child.</p>
+        <p>Username</p>
+        <input type="text" id = "SignUpUsername">
+        <p>Password for Your Kid to use</p>
+        <input type="password" id = "SignUpPassword"><br>
+        <p >Password for Parents to add money for kid</p>
+        <input type="password" id = "ParentPassword"><br>
+        <button type="button" id = "SignUpButton" class = "button">SignUp</button>
+    </div>
+    <div class="exp">
+        <p>Points to keep in mind while creating and using a PocketDollar account:<br>
+            <br>
+            1Account creation must be done by parents.<br>
+            <br>
+            2Creation of account involves setting 2 Passwords and 1 username.<br>
+            <br>
+            3First password is for kids to use.<br>
+            <br>
+            4Kids can login with the set username and first password to access the Pay feature, using which they can transfer "Goldpoints" to other accounts that exist.<br>
+            <br>
+            5Second password is for parents to use.<br>
+            <br>
+            6Parents can login with the set username and parent password to acess the Add Money feature using which they can add a number of "Goldpoints" to their kid's account.<br>
+            <br>
+            7Parents can use this simulation of real money to teach their kids about money.<br>
+            <br>8It can also be used by parents to keep track/record of money they promised to their kid(s)<br>
+
+        </p></div>
+    <script type ="module">
+        //FIREBASE INIT
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDbzIAa62WYiCIPotn0oLcuIHaEpH65aqY",
+            authDomain: "js12-97263.firebaseapp.com",
+            databaseURL: "https://js12-97263-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "js12-97263",
+            storageBucket: "js12-97263.appspot.com",
+            messagingSenderId: "199648949193",
+            appId: "1:199648949193:web:12d8a90bea9cf434c7ee18"
+        };
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        import{getDatabase,set,get,update,remove,ref,child}
+        from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+        const db = getDatabase()
+
+        //FETCHING WEBPAGE ELEMENTS USING ID 
+        var SignupButton = document.getElementById("SignUpButton");
+        var SignupUsername = document.getElementById("SignUpUsername");
+        var SignupPassword = document.getElementById("SignUpPassword");
+        var ParentPassword = document.getElementById("ParentPassword");
+        //SIGNUP FUNCTION
+        SignupButton.onclick =function(){
+            var SU = SignupUsername.value;
+            var SP = SignupPassword.value;
+            var PU = ParentPassword.value;
+            const dbref = ref(db)
+            get(child(dbref,"Users/"+ SU))
+            .then(function(snapshot) {
+                var a = snapshot.exists()
+                if (a===true){
+                    alert("Account with the same username aldready exists.")}
+                else{
+                    set(ref(db,"Users/"+SU),{
+                        User: SU,
+                        Password: SP,
+                        Parent: PU,
+                        GoldPoints: 0
+                    })
+                    .then(()=>{
+                        alert("Account Created, please keep these credentials safe, if password forgotten approach customer support.")
+                        console.log("YUP")
+                        location.href = 'loginfork.html'
+                    })
+                    .catch((error)=>{
+                        alert(error)
+                        console.log("yup")
+                    })
+        };
+                })
+            };
+            
+
+    </script>
+    
+</body>
+</html>

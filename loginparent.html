@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login as a Parent</title>
+    <style>
+        body{
+            background-color:#39B5E0;
+            font-family :'Lato';
+            text-align: center;
+
+        }
+        a{color: #0A4D68;
+         text-decoration: none;}
+         h1{
+            font-size:1.1em;
+            color:#0A4D68;
+            margin-top: 1.2em;
+            text-align: center;
+        }
+        .logo{color:antiquewhite;
+            font-family:'Lato';
+            position:fixed;
+            top:0%;
+            left :0%;
+            right:0%;
+            bottom:90%;
+            z-index:5;
+            background-color: white;
+        }
+        .img{
+            z-index: 5;
+            width: 3em;
+            position: absolute;
+            top:0.2em;
+            left:29em;
+            bottom:90%
+
+        }
+
+        .bold{
+            width:21em;
+            position: absolute;
+            left:1em;
+            top:9em
+        }
+        #boldtext1{
+            position:absolute;
+            left:1em;
+            top:1em;
+            font-family: "Lato";
+            color:#569DAA;
+            font-size: 3em;
+        }
+        #boldtext2{
+            font-family:Money;
+            font-size: 5.5em;
+            position: absolute;
+            top:0.9em;
+            left:4.9em;
+        }
+        .button {
+            
+             background-color: #4CAF50; /* Green */
+             border: none;
+             color: white;
+             padding: 15px 32px;
+             text-align: center;
+             text-decoration: none;
+             display: inline-block;
+             font-size: 16px;
+             margin: 4px 2px;
+             cursor: pointer;
+             -webkit-transition-duration: 0.4s; /* Safari */
+             transition-duration: 0.4s;}
+        .button:hover {
+             box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);}
+        
+        #home{
+            position: absolute;
+            top: 0.3em;
+            left: 0.5em;
+        }
+        p{
+            
+            color: #0A4D68;
+        }
+        #pd{text-align: center;}
+        .signs{
+            
+            position: absolute;
+            left:55%
+                        
+        }
+        input[type=text] {
+            padding: 10px 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            }
+        input[type=password] {
+            padding: 10px 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            }
+        .exp{
+            overflow:scroll;
+            position: absolute;
+            left:30px;
+            right:600px;
+            bottom: -500px;
+            top:70px;
+            background-color: azure;
+              
+        }
+    </style>
+</head>
+<body>
+    <span class = "logo">
+        <h1 >Pocket Dollar</h1>
+        <img class = "img" src = "piggy-bank.gif" alt="$">
+<!--        <h3 id="signup"><a href = "signup.html" >Signup</a><h3> 
+        <h3 id="login"><a href = "Login.html" >Login</a><h3> -->
+        <h3 id = "home"><a href = "index.html" >HOME</a><h3>
+        <hr>  
+        
+    </span>
+    <h1>Login as a Parent</h1>
+    <h1>Username</h1>
+    <input type="text" id="unm"><br>
+    <h1>Parent Password</h1>
+    <input type="password" id="pwd"><br>
+    <button id = "Login" class="button">Login as a Parent<br>
+    and acess Add Money feature</button>
+    <script type="module">
+                //Var storing username of user who is using the webpage (after login)
+                var UserUsingWebpage = false
+
+                //FIREBASE INIT
+                // Import the functions you need from the SDKs you need
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+                // TODO: Add SDKs for Firebase products that you want to use
+                // https://firebase.google.com/docs/web/setup#available-libraries
+
+                // Your web app's Firebase configuration
+                const firebaseConfig = {
+                    apiKey: "AIzaSyDbzIAa62WYiCIPotn0oLcuIHaEpH65aqY",
+                    authDomain: "js12-97263.firebaseapp.com",
+                    databaseURL: "https://js12-97263-default-rtdb.asia-southeast1.firebasedatabase.app",
+                    projectId: "js12-97263",
+                    storageBucket: "js12-97263.appspot.com",
+                    messagingSenderId: "199648949193",
+                    appId: "1:199648949193:web:12d8a90bea9cf434c7ee18"
+                };
+                // Initialize Firebase
+                const app = initializeApp(firebaseConfig);
+                import{getDatabase,set,get,update,remove,ref,child}
+                from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+                const db = getDatabase()
+
+                //GETTING ELEMENT BY ID
+                var LoginButton = document.getElementById("Login");
+
+                  
+                //LOGIN FUNCTION USING PROMPT FOR INPUT
+                LoginButton.onclick = function(){
+                    var Unm = document.getElementById('unm').value;
+                    var Pwd = document.getElementById('pwd').value;
+                    const dbref = ref(db)
+                    get(child(dbref, "Users/"+Unm))
+                    .then(function(snapshot){
+                        var a = snapshot.exists()
+                        if (a === true){
+                            var ppass = snapshot.val().Parent
+                            if (ppass===Pwd){
+                                alert("Logged In!")
+                                UserUsingWebpage = Unm
+                                
+                                localStorage.setItem("PocketDollarU",UserUsingWebpage)
+                                localStorage.setItem("PocketDollarType","Parent")
+                            }
+                            else {alert("Wrong Password!"); UserUsingWebpage = false}
+                            
+                        }
+                        else{
+                            alert("Username doesn't exist!")
+
+                        }
+                        if (UserUsingWebpage){
+                            location.href = 'fts.html'
+                        }
+                    })
+                    
+                    
+                }
+
+    </script>
+</body>
+</html>
